@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans                                                                             
-    xmlns="http://www.springframework.org/schema/osgi"                                    
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:beans="http://www.springframework.org/schema/beans"                             
-    xsi:schemaLocation="http://www.springframework.org/schema/osgi  
-       http://www.springframework.org/schema/osgi/spring-osgi.xsd
-       http://www.springframework.org/schema/beans   
-       http://www.springframework.org/schema/beans/spring-beans.xsd">                    
-	<beans:bean id="dispatcherBean" class="com.dell.m1.osgi.superserver.dispatcher.internal.DispatcherServiceImpl"/>
-	
-	<list id="handlerListener" interface="com.dell.m1.osgi.superserver.handler.HandlerService" cardinality="0..N">
-		<listener ref="dispatcherBean" bind-method="bindHandler" unbind-method="unbindHandler"/>
-	</list> 
-	
-	<service id="dispatcherService" 
-	         interface="com.dell.m1.osgi.superserver.dispatcher.DispatcherService" 
-	         ref="dispatcherBean"/>
-</beans:beans>
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+    <bean id="dispatcherBean" class="com.dell.dea.superserver.dispatcher.impl.DispatcherServiceImpl"/>
+
+    <list id="handlerListener" interface="com.dell.dea.superserver.handler.HandlerService" cardinality="0..N">
+        <listener ref="dispatcherBean" bind-method="bindHandler" unbind-method="unbindHandler"/>
+    </list>
+
+    <service id="dispatcherService"
+             interface="com.dell.dea.superserver.dispatcher.DispatcherService"
+             ref="dispatcherBean"/>
+</blueprint>

@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans                                                                             
-    xmlns="http://www.springframework.org/schema/osgi"                                    
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:beans="http://www.springframework.org/schema/beans"                             
-    xsi:schemaLocation="http://www.springframework.org/schema/osgi  
-       http://www.springframework.org/schema/osgi/spring-osgi.xsd
-       http://www.springframework.org/schema/beans   
-       http://www.springframework.org/schema/beans/spring-beans.xsd">                    
-	<beans:bean id="tp" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
-		<beans:constructor-arg value="16"/>
-	</beans:bean>
-	
-	<beans:bean id="ssf" class="javax.net.ServerSocketFactory" factory-method="getDefault"/>
-	
-	<beans:bean id="listenerBean" 
-	            class="com.dell.m1.osgi.superserver.listener.internal.ListenerServiceImpl" 
-	            init-method="start"
-	            destroy-method="stop">
-		<beans:property name="port" value="22250"/>
-		<beans:property name="serverSocketFactory" ref="ssf"/>
-		<beans:property name="threadPool" ref="tp"/>
-		<beans:property name="timeout" value="10000"/>
-	</beans:bean>
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+    <bean id="tp" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+        <constructor-arg value="16"/>
+    </bean>
 
-	<reference id="dispatcherService" 
-	           interface="com.dell.m1.osgi.superserver.dispatcher.DispatcherService"
-	           cardinality="1..1"
-	           timeout="5000">
-		<listener ref="listenerBean" bind-method="bindDispatcher" unbind-method="unbindDispatcher"/>
-	</reference>
-		
-	<service id="listenerService" 
-	         interface="com.dell.m1.osgi.superserver.listener.ListenerService" 
-	         ref="listenerBean"
-	         depends-on="dispatcherService"/>
-</beans:beans>
+    <bean id="ssf" class="javax.net.ServerSocketFactory" factory-method="getDefault"/>
+
+    <bean id="listenerBean"
+          class="com.dell.dea.superserver.listener.impl.ListenerServiceImpl"
+          init-method="start"
+          destroy-method="stop">
+        <property name="port" value="22250"/>
+        <property name="serverSocketFactory" ref="ssf"/>
+        <property name="threadPool" ref="tp"/>
+        <property name="timeout" value="10000"/>
+    </bean>
+
+    <reference id="dispatcherService"
+               interface="com.dell.dea.superserver.dispatcher.DispatcherService"
+               cardinality="1..1"
+               timeout="5000">
+        <listener ref="listenerBean" bind-method="bindDispatcher" unbind-method="unbindDispatcher"/>
+    </reference>
+
+    <service id="listenerService"
+             interface="com.dell.dea.superserver.listener.ListenerService"
+             ref="listenerBean"
+             depends-on="dispatcherService"/>
+</blueprint>
