@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans                                                                             
+    xmlns="http://www.springframework.org/schema/osgi"                                    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"                             
+    xsi:schemaLocation="http://www.springframework.org/schema/osgi  
+       http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd">                    
+	<beans:bean id="dispatcherBean" class="com.dell.m1.osgi.superserver.dispatcher.internal.DispatcherServiceImpl"/>
+	
+	<list id="handlerListener" interface="com.dell.m1.osgi.superserver.handler.HandlerService" cardinality="0..N">
+		<listener ref="dispatcherBean" bind-method="bindHandler" unbind-method="unbindHandler"/>
+	</list> 
+	
+	<service id="dispatcherService" 
+	         interface="com.dell.m1.osgi.superserver.dispatcher.DispatcherService" 
+	         ref="dispatcherBean"/>
+</beans:beans>
