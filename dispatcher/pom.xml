@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+    <artifactId>superserver</artifactId>
+    <groupId>com.dell.dea</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+    <groupId>com.dell.dea</groupId>
+    <artifactId>dispatcher</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+
+    <name>dispatcher Blueprint Bundle</name>
+    <description>dispatcher OSGi blueprint bundle project.</description>
+
+    <properties>
+        <maven-bundle-plugin.version>2.3.6</maven-bundle-plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                    <Bundle-Version>${project.version}</Bundle-Version>
+                    <Export-Package>com.dell.dea.superserver.dispatcher*;version=${project.version}</Export-Package>
+                    <Import-Package>*</Import-Package>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
