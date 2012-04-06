@@ -1,4 +1,4 @@
-package com.dell.dea.superserver.dispatcher.internal;
+package com.dell.dea.superserver.dispatcher.impl;
 
 import java.text.ParseException;
 import java.text.ParsePosition;

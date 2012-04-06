@@ -15,8 +15,8 @@
   </properties>
 
   <modules>
-    <module>listener</module>
     <module>handler</module>
     <module>dispatcher</module>
+    <module>listener</module>
   </modules>
 </project>
